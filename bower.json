@@ -2,10 +2,13 @@
   "name": "backbone-time",
   "private": true,
   "dependencies": {
-    "bootstrap-sass-official": "~3.1.1",
-    "modernizr": "~2.6.2",
     "jquery": "~1.11.0",
-    "backbone": "~1.1.2"
+    "bootstrap-sass-official": "~3.1.1",
+    "modernizr": "~2.6.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "requirejs": "~2.1.11",
+    "requirejs-text": "~2.0.12",
+    "backbone": "~1.1.2"
+  }
 }

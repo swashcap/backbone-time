@@ -29,8 +29,6 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/underscore/underscore.js"></script>
-    <script src="bower_components/backbone/backbone.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -49,8 +47,29 @@
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
     <!-- endbuild -->
 
+    <script>
+      var require = {
+        baseUrl: '/scripts/',
+        paths: {
+          'jquery': '/bower_components/jquery/dist/jquery',
+          'underscore': '/bower_components/underscore/underscore',
+          'backbone': '/bower_components/backbone/backbone',
+          'text': '/bower_components/requirejs-text/text'
+        },
+        shim: {
+          'backbone': {
+            deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+          },
+          'underscore': {
+            exports: '_'
+          },
+        }
+      };
+    </script>
+    <script data-main="/scripts/main.js" src="/bower_components/requirejs/require.js"></script>
+
     <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>
 </html>
