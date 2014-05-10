@@ -18,8 +18,8 @@ requirejs.config({
   }
 });
 
-require(['backbone', 'views/app'], function(Backbone, AppView) {
+require(['routers/router'], function(AppRouter) {
   'use strict';
 
-  new AppView();
+  AppRouter.initialize();
 });

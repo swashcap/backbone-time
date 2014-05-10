@@ -1,5 +1,9 @@
 /* global define */
-define(['jquery', 'underscore', 'backbone', 'text!templates/app.html'], function($, _, Backbone, AppTemplate) {
+define([
+  'jquery',
+  'underscore',
+  'backbone',
+  'text!templates/app.html'], function($, _, Backbone, AppTemplate) {
   'use strict';
 
   var AppView = Backbone.View.extend({
@@ -34,6 +38,10 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/app.html'], function
      */
     navigation: function(e) {
       e.preventDefault();
+
+      if (e.target.href) {
+        window.router.navigate(e.target.getAttribute('href'), true);
+      }
     }
   });
 
