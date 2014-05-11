@@ -1,5 +1,12 @@
 /* global define */
-define(['backbone', 'views/app'], function(Backbone, AppView) {
+define([
+  'backbone',
+  'sample-data',
+  'views/app',
+  'views/day',
+  'views/week',
+  'views/month'
+], function(Backbone, sampleData, AppView, DayView, WeekView, MonthView) {
   'use strict';
 
   /**
@@ -45,12 +52,18 @@ define(['backbone', 'views/app'], function(Backbone, AppView) {
     });
     router.on('route:showDay', function() {
       console.log('showDay fired.');
+
+      var dayView = new DayView(sampleData.entries);
     });
     router.on('route:showWeek', function() {
       console.log('showWeek fired.');
+
+      var weekView = new WeekView(sampleData.days)
     });
     router.on('route:showMonth', function() {
       console.log('showMonth fired.');
+
+      var monthView = new MonthView(new Date());
     });
 
     /**

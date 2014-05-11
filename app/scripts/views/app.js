@@ -3,7 +3,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/app.html'], function($, _, Backbone, AppTemplate) {
+  'text!templates/app.html'
+], function($, _, Backbone, AppTemplate) {
   'use strict';
 
   var AppView = Backbone.View.extend({
@@ -39,8 +40,15 @@ define([
     navigation: function(e) {
       e.preventDefault();
 
-      if (e.target.href) {
-        window.router.navigate(e.target.getAttribute('href'), true);
+      var href = e.target.getAttribute('href');
+
+      // Update classes
+      this.$el.find('.navbar li').removeClass('active');
+      $(e.target).parent('li').addClass('active');
+
+      // Push navigation to application's router
+      if (href) {
+        window.router.navigate(href, true);
       }
     }
   });
