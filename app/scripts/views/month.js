@@ -1,10 +1,11 @@
 /* global define */
 define([
+  'jquery',
   'underscore',
   'backbone',
   'text!templates/month.html',
   'helpers/helpers'
-], function(_, Backbone, MonthTemplate, Helpers) {
+], function($, _, Backbone, MonthTemplate, Helpers) {
   'use strict';
 
   var MonthView = Backbone.View.extend({
@@ -34,7 +35,11 @@ define([
     },
 
     events: {
-      'click .nav a': 'monthNavigator',
+      // Navigate between months
+      'click .next': 'monthNavigator',
+      'click .previous': 'monthNavigator',
+      'click .current': 'monthNavigator',
+
       'click tbody a': 'dayNavigator'
     },
 
@@ -53,7 +58,7 @@ define([
       // Add template to the DOM
       this.$el.html(this.template({
         previous: Helpers.getMonthName(previousMonth),
-        current: Helpers.getMonthName(currentMonth),
+        current: Helpers.getMonthName(currentMonth) + ' <small>' + this.requestDate.getFullYear() + '</small>',
         next: Helpers.getMonthName(nextMonth)
       }));
 
@@ -73,12 +78,17 @@ define([
 
       console.log('monthNavigator() fired.');
 
-      if (e.target.getAttribute('rel') === 'prev') {
+      if ($(e.target).hasClass('previous')) {
         this.requestDate = this.getPreviousMonthDate();
         this.render();
-      } else if (e.target.getAttribute('rel') === 'next') {
+      } else if ($(e.target).hasClass('next')) {
         this.requestDate = this.getNextMonthDate();
         this.render();
+      } else if ($(e.target).hasClass('current')) {
+        if (this.requestDate !== this.currentDate) {
+          this.requestDate = this.currentDate;
+          this.render();
+        }
       }
     },
 

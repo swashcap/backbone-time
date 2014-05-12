@@ -1,10 +1,17 @@
 <div class="row">
-  <div class="col-sm-8 col-sm-push-2">
-    <ul class="nav nav-pills nav-justified">
-      <li><a href="#" rel="prev">&larr; <%= previous %></a></li>
-      <li class="active"><a href="#"><%= current %></a></li>
-      <li><a href="#" rel="next"><%= next %> &rarr;</a></li>
-    </ul>
+  <div class="col-sm-5">
+    <h2><%= current %></h2>
+  </div>
+  <div class="col-sm-7">
+    <div class="btn-toolbar" role="toolbar">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default previous">&larr; <%= previous %></button>
+        <button type="button" class="btn btn-default next"><%= next %> &rarr;</a></button>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default current">Current Month</button>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">
