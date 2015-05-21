@@ -5,8 +5,9 @@ define([
   'backbone',
   'text!templates/day.html',
   'collections/day',
-  'views/entry'
-], function($, _, Backbone, Template, Day, EntryView) {
+  'views/entry',
+  'helpers/helpers'
+], function($, _, Backbone, Template, Day, EntryView, DateHelper) {
   'use strict';
 
   var DayView = Backbone.View.extend({
@@ -17,13 +18,13 @@ define([
       // Construct the collection
       this.collection = new Day(entries);
 
-      // Add the view's template to `el`
-      this.$el.html(this.template(this.getViewJSON()));
-
       this.render();
     },
 
     render: function() {
+      // Add the view's template to `el`
+      this.$el.html(this.template(this.getViewJSON()));
+
       this.collection.each(function(entry) {
         this.renderEntry(entry);
       }, this);
@@ -36,13 +37,15 @@ define([
     },
 
     getViewJSON: function() {
-      var currentDate = this.collection.first().get('date');
-      var nextDate = currentDate + 24 * 60 * 60 * 1000;
-      var previousDate = currentDate - 24 * 60 * 60 * 1000;
+      var current = this.collection.first().get('date');
+      var next = current + 24 * 60 * 60 * 1000;
+      var previous = current - 24 * 60 * 60 * 1000;
 
-      console.log(currentDate, nextDate, previousDate);
-
-      return {};
+      return {
+        current: DateHelper.formatDate(current, '%A <small>%B %d</small>'),
+        next: DateHelper.formatDate(next, '%B %d'),
+        previous: DateHelper.formatDate(previous, '%B %d')
+      };
     }
   });
 

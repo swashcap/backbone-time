@@ -49,17 +49,17 @@ define([
      * @return void
      */
     render: function() {
-      var currentMonth = this.requestDate.getMonth();
+      var previousMonth = this.requestDate.getTime() - 24 * 60 * 60 * 1000 * this.getDaysPerMonth(this.requestDate.getTime());
 
-      var previousMonth = (currentMonth - 1 >= 0) ? currentMonth - 1 : 11;
+      var nextMonth = this.requestDate.getTime() + 24 * 60 * 60 * 1000 * this.getDaysPerMonth(this.requestDate.getTime());
 
-      var nextMonth = (currentMonth + 1 <= 11) ? currentMonth + 1 : 0;
+      // console.log(previousMonth, nextMonth);
 
       // Add template to the DOM
       this.$el.html(this.template({
-        previous: Helpers.getMonthName(previousMonth),
-        current: Helpers.getMonthName(currentMonth) + ' <small>' + this.requestDate.getFullYear() + '</small>',
-        next: Helpers.getMonthName(nextMonth)
+        previous: Helpers.formatDate(previousMonth, '%B %Y'),
+        current: Helpers.formatDate(this.requestDate,  '%B <small>%Y</small>'),
+        next: Helpers.formatDate(nextMonth, '%B %Y')
       }));
 
       var html = this.getHTML(this.requestDate);
@@ -129,7 +129,7 @@ define([
       days = days.concat(_(6 - lastDate.getDay()).times(function() { return ''; }));
 
       // Build HTML
-      for (var i = 0; i < days.length; i++) {
+      for (i = 0; i < days.length; i++) {
         if (i % 7 === 0) {
           html += '<tr>';
         }
@@ -144,7 +144,7 @@ define([
           html += '<a>';
         }
         html += '</td>';
-        if ((i + 1) %76 === 0) {
+        if ((i + 1) % 7 === 0) {
           html += '</tr>';
         }
       }
@@ -159,6 +159,12 @@ define([
      * @return num
      */
     getDaysPerMonth: function(date) {
+      if (date === 'undefined') {
+        date = new Date();
+      } else if ( ! (date instanceof Date)) {
+        date = new Date(date);
+      }
+
       var daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
       // Change February's day count for leap years

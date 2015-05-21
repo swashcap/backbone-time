@@ -58,7 +58,7 @@ define([
     router.on('route:showWeek', function() {
       console.log('showWeek fired.');
 
-      var weekView = new WeekView(sampleData.days)
+      var weekView = new WeekView(sampleData.days);
     });
     router.on('route:showMonth', function() {
       console.log('showMonth fired.');
